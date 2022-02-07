@@ -9,12 +9,14 @@ def premier(n):
     return cpt == 2
 
 def rotation(n):
-    # 1234
-    # 4123
-    nch = str(n)
-    # dernier caractère de nch est à l'indice -1
-    # les n-1 caractères de nch
-    return int(nch[-1] + nch[:-1])
+    # [7] [793] est un nombre premier
+    # [793] [7] 
+    # 7937 est un nombre premier
+    # 9377 est un nombre premier
+    # 3779 est un nombre premier
+    # 7793
+    chn = str(n)
+    return int(chn[1:] + chn[0])
 
 def circulaire(n):
     if not premier(n):
@@ -22,19 +24,18 @@ def circulaire(n):
     p = rotation(n)
     while p != n and premier(p):
         p = rotation(p)
-    return n == p
+    return p == n
 
 def verif_circulaire():
-    chn = win.txt_saisie.text()
-    if chn.isdigit():
+    chn = win.txt_n.text()
+    if len(chn) > 0 and chn.isdigit():
         n = int(chn)
         if not premier(n):
             msg = "Nombre non premier"
+        elif circulaire(n):
+            msg = "Nombre premier circulaire"
         else:
-            if circulaire(n):
-                msg = "Nombre premier circulaire"
-            else:
-                msg = "Nombre premier non circulaire"
+            msg = "Nombre premier non circulaire"
     else:
         msg = "Erreur de saisie"
     win.lbl_res.setText(msg)
@@ -44,8 +45,3 @@ win = loadUi("circulaire.ui")
 win.btn_verif.clicked.connect(verif_circulaire)
 win.show()
 app.exec()
-
-
-
-    
-        
