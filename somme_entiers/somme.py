@@ -1,15 +1,22 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication
 
-def verifier(ch):
-    return ch.isdigit() and 0 <= int(ch) <= 1000
-
 def calc_somme():
-    if not verifier(win.txt_a.text()) or not verifier(win.txt_b.text()):
-        win.lbl_res.setText("Erreur")
+    # (étape 1) récupérer le contenu des deux champs
+    sa = win.txt_a.text()
+    sb = win.txt_b.text()
+    
+    # (étape 2) vérifier la validité des deux champs
+    if not sa.isdigit() or not sb.isdigit():
+        win.lbl_res.setText("Entrer deux valeurs numériques")
         return
     
-    s = int(win.txt_a.text()) + int(win.txt_b.text())
+    # (étape 3) calculer la somme des deux nombres
+    a = int(sa)
+    b = int(sb)
+    s = a + b
+    
+    # (étape 4) afficher le résultat
     win.lbl_res.setText(f"Résultat = {s}")
 
 app = QApplication([])

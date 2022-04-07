@@ -1,7 +1,8 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication
 
-def verif(ch):
+def est_reel(ch):
+    """Vérifie que ch contient un nombre réel."""
     v = len(ch) > 0
     if v:
         try:
@@ -11,17 +12,31 @@ def verif(ch):
     return v
 
 def convert_tnd():
-    if verif(win.txt_euro.text()) and verif(win.txt_prix_euro.text()):
-        euro = float(win.txt_euro.text())
-        prix_euro = float(win.txt_prix_euro.text())
+    # (1) Récupérer le contenu des champs de textes
+    seuro = win.txt_euro.text()
+    sprix = win.txt_prix_euro.text()
+    
+    # (2) Vérifier que les champs sont valides
+    if est_reel(seuro) and est_reel(sprix):
+        # (3) convertir les Euros en TND
+        euro = float(seuro)
+        prix_euro = float(sprix)
         tnd = euro * prix_euro
+        # (4) Afficher le résultat
         win.txt_tnd.setText(f"{tnd}")
 
 def convert_euro():
-    if verif(win.txt_tnd.text()) and verif(win.txt_prix_euro.text()):
-        tnd = float(win.txt_tnd.text())
-        prix_euro = float(win.txt_prix_euro.text())
+    # (1) Récupérer le contenu des champs de textes
+    stnd = win.txt_tnd.text()
+    sprix = win.txt_prix_euro.text()
+    
+    # (2) Vérifier que les champs sont valides
+    if est_reel(stnd) and est_reel(sprix):
+        # (3) convertir les TND en Euros
+        tnd = float(stnd)
+        prix_euro = float(sprix)
         euro = tnd / prix_euro
+        # (4) Afficher le résultat
         win.txt_euro.setText(f"{euro}")
 
 app = QApplication([])
